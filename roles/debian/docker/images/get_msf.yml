@@ -1,0 +1,7 @@
+- name: Pull Metasploit Docker container
+  community.docker.docker_image:
+    name: metasploitframework/metasploit-framework:latest
+    source: pull
+    pull:
+      platform: amd64
+  when: msf == true or all == true

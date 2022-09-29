@@ -1,0 +1,7 @@
+- name: Pull nginx Docker container
+  community.docker.docker_image:
+    name: nginx:alpine
+    source: pull
+    pull:
+      platform: amd64
+  when: nginx == true or all == true

@@ -1,0 +1,4 @@
+- name: install wget
+  ansible.builtin.apt:
+    name: wget
+    update_cache: yes

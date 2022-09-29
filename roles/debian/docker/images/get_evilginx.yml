@@ -1,0 +1,7 @@
+- name: Pull evilginx2 Docker container
+  community.docker.docker_image:
+    name: heywoodlh/evilginx2:latest
+    source: pull
+    pull:
+      platform: amd64
+  when: evilginx2 == true or all == true

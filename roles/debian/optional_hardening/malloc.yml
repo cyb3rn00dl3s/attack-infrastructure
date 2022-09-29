@@ -1,0 +1,53 @@
+- when: malloc_hardening == true
+  block:
+  - name: Installing build-essential
+    ansible.builtin.apt:
+      name: build-essential
+      update_cache: yes
+    when:
+  - name: Installing git
+    ansible.builtin.apt:
+      name: git
+      update_cache: yes
+  - name: Cloning hardened_malloc
+    ansible.builtin.git:
+      repo: https://github.com/GrapheneOS/hardened_malloc.git
+      dest: /root/hardened_malloc
+  - name: Building malloc
+    ansible.builtin.command:
+      cmd: make
+    args:
+        chdir: /root/hardened_malloc
+  - name: Installing malloc
+    ansible.builtin.copy: 
+      src: /root/hardened_malloc/out/libhardened_malloc.so 
+      dest: /usr/local/lib/libhardened_malloc.so
+      remote_src: yes
+      mode: '0555'
+  - name: Adding hardened_malloc to preload
+    ansible.builtin.lineinfile:
+      path: /etc/ld.so.preload
+      create: yes
+      line: "/usr/local/lib/libhardened_malloc.so"
+      owner: root
+      group: root
+      mode: '0444'
+  - name: Increasing vm.max_map_count
+    ansible.builtin.lineinfile:
+      path: /etc/sysctl.d/hardened_malloc.conf
+      create: yes
+      line: "vm.max_map_count = 1048576"
+      owner: root
+      group: root
+      mode: '0444'
+  - name: Clean up build directory
+    ansible.builtin.file:
+      state: absent
+      path: /root/hardened_malloc
+  - name: Remove build tools
+    ansible.builtin.apt:
+      name: build-essential
+      state: absent
+      purge: yes
+      clean: yes
+      autoremove: yes

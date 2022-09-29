@@ -1,0 +1,20 @@
+- name: Removing old motd
+  ansible.builtin.file:
+    state: absent
+    path: /etc/motd
+- name: Writing custom motd
+  ansible.builtin.blockinfile:
+    state: present
+    path: /etc/motd
+    create: yes
+    block: "{{motd}}"
+- name: Delete ansible marker in motd (1/2)
+  ansible.builtin.lineinfile:
+    state: absent
+    path: /etc/motd
+    search_string: '# BEGIN ANSIBLE MANAGED BLOCK'
+- name: Delete ansible marker in motd (2/2)
+  ansible.builtin.lineinfile:
+    state: absent
+    path: /etc/motd
+    search_string: '# END ANSIBLE MANAGED BLOCK'

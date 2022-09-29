@@ -1,0 +1,4 @@
+- name: install openssh-sftp-server
+  ansible.builtin.apt:
+    name: openssh-sftp-server
+    update_cache: yes

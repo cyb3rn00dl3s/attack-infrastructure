@@ -1,0 +1,7 @@
+- name: Pull Empire Docker container
+  community.docker.docker_image:
+    name: bcsecurity/empire:latest
+    source: pull
+    pull:
+      platform: amd64
+  when: empire == true or all == true

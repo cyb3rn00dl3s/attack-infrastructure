@@ -1,0 +1,7 @@
+- name: Pull gophish Docker container
+  community.docker.docker_image:
+    name: gophish/gophish:latest
+    source: pull
+    pull:
+      platform: amd64
+  when: gophish == true or all == true

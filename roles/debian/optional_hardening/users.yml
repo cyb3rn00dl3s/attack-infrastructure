@@ -1,0 +1,22 @@
+- name: Setup Super User
+  ansible.builtin.user:
+    name: "{{super_user_name}}"
+    password: "{{super_user_pass}}"
+    generate_ssh_key: yes
+    ssh_key_type: "ed25519"
+    ssh_key_file: ".ssh/id_{{super_user_name}}"
+    shell: /bin/bash
+- name: Fetching ssh key
+  ansible.builtin.fetch:
+    src: "/home/{{super_user_name}}/.ssh/id_{{super_user_name}}"
+    dest: "../../id_{{super_user_name}}_{{ansible_date_time.iso8601_basic_short}}"
+    flat: yes
+- name: Creating authorized_keys file
+  ansible.builtin.copy:
+    src: /home/{{super_user_name}}/.ssh/id_{{super_user_name}}.pub
+    dest: /home/{{super_user_name}}/.ssh/authorized_keys
+    remote_src: yes
+- name: Delete ssh private key on node
+  ansible.builtin.file:
+    path: /home/{{super_user_name}}/.ssh/id_{{super_user_name}}
+    state: absent

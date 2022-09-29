@@ -1,0 +1,22 @@
+- when: ssh_hardening == true
+  block:
+  - name: Set Password Authentication
+    ansible.builtin.lineinfile:
+      path: /etc/ssh/sshd_config
+      line: "PasswordAuthentication no"
+      regexp: 'PasswordAuthentication (yes|no)'
+  - name: Enable Public Key Authentication
+    ansible.builtin.lineinfile:
+      path: /etc/ssh/sshd_config
+      line: "PubkeyAuthentication yes"
+      regexp: 'PubkeyAuthentication (yes|no)'
+  - name: Disable Root Login
+    ansible.builtin.lineinfile:
+      path: /etc/ssh/sshd_config
+      line: "PermitRootLogin no"
+      regexp: 'PermitRootLogin (yes|no)'
+  - name: Set MaxAuthRetries to 3
+    ansible.builtin.lineinfile:
+      path: /etc/ssh/sshd_config
+      line: "MaxAuthTries 3"
+      regexp: 'MaxAuthTries [0-9]+'

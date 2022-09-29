@@ -1,0 +1,4 @@
+- name: install tmux
+  ansible.builtin.apt:
+    name: tmux
+    update_cache: yes

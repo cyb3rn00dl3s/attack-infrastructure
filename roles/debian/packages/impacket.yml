@@ -1,0 +1,4 @@
+- name: install impacket
+  ansible.builtin.apt:
+      name: python3-impacket
+      update_cache: yes

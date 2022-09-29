@@ -1,0 +1,7 @@
+- name: Pull sliver Docker container
+  community.docker.docker_image:
+    name: ghcr.io/cyb3rn00dl3s/container-sliver:latest
+    source: pull
+    pull:
+      platform: amd64
+  when: sliver == true or all == true

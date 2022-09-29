@@ -1,0 +1,33 @@
+- name: Install doas
+  ansible.builtin.apt:
+    name: doas
+    update_cache: yes
+- name: Remove sudo
+  ansible.builtin.apt:
+    name: sudo
+    state: absent
+    purge: yes
+    clean: yes
+    autoremove: yes
+- name: Symlinking doas to /bin/sudo
+  ansible.builtin.file:
+    src: /usr/bin/doas
+    dest: /bin/sudo
+    owner: root
+    group: root
+    state: link
+- name: Symlinking doas to /usr/bin/sudo
+  ansible.builtin.file:
+    src: /usr/bin/doas
+    dest: /usr/bin/sudo
+    owner: root
+    group: root
+    state: link
+- name: Setup doas.conf
+  ansible.builtin.lineinfile:
+    path: /etc/doas.conf
+    create: yes
+    line: "permit {{super_user_name}} as root"
+    owner: root
+    group: root
+    mode: '0400'

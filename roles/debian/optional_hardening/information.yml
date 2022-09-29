@@ -1,0 +1,18 @@
+- when: normalize_information == true
+  block:
+  - name: Setting Timezone to UTC
+    community.general.timezone:
+      name: UTC
+  - name: Set Machine ID (dbus) to Whonix ID
+    ansible.builtin.lineinfile:
+      path: /var/lib/dbus/machine-id 
+      regexp: '[a-z0-9]*'
+      state: present
+      line: 'b08dfa6083e7567a1921a715000001fb'
+  - name: Set Machine ID (etc/machineid) to Whonix ID
+    ansible.builtin.lineinfile:
+      path: /etc/machine-id
+      create: yes
+      line: 'b08dfa6083e7567a1921a715000001fb'
+      regexp: '[a-z0-9]*'
+      state: present

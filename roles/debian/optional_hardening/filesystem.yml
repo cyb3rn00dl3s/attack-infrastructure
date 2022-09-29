@@ -1,0 +1,40 @@
+- when: filesystem_hardening == true
+  block:
+  - name: set umask in /etc/profile
+    ansible.builtin.lineinfile:
+        path: /etc/profile 
+        create: yes
+        regexp: 'umask [0-9]{3,4}'
+        state: present
+        line: 'umask 0077'
+  - name: Disable coredumps via ulimit
+    ansible.builtin.lineinfile:
+      path: /etc/security/limits.conf
+      regexp: '\* hard core '
+      state: present
+      line: '* hard core 0'
+  - name: Disable core dumps via sysctl
+    ansible.builtin.lineinfile:
+      path: /etc/sysctl.conf 
+      regexp: 'kernel\.core_pattern='
+      state: present
+      line: 'kernel.core_pattern=|/bin/false'
+  - name: Disable suid core dumps via sysctl
+    ansible.builtin.lineinfile:
+      path: /etc/sysctl.conf 
+      regexp: 'fs\.suid_dumpable'
+      state: present
+      line: 'fs.suid_dumpable=0'
+  - name: Only use swap if necessary
+    ansible.builtin.lineinfile:
+      path: /etc/sysctl.conf 
+      regexp: 'vm\.swappiness'
+      state: present
+      line: 'vm.swappiness=1'
+  - name: Enable APT Seccomp filter
+    ansible.builtin.lineinfile:
+      path: /etc/apt/apt.conf.d/40sandbox
+      create: yes
+      regexp: 'APT::Sandbox::Seccomp'
+      state: present
+      line: 'APT::Sandbox::Seccomp "true";'

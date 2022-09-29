@@ -1,0 +1,77 @@
+- name: Creating directory /home/{{super_user_name}}/c2
+  ansible.builtin.file:
+    path: /home/{{super_user_name}}/c2
+    state: directory
+    owner: "{{super_user_name}}"
+    group: "{{super_user_name}}"
+    mode: '0770'
+- name: Creating directory /home/{{super_user_name}}/c2/content
+  ansible.builtin.file:
+    path: /home/{{super_user_name}}/c2/content
+    state: directory
+    owner: "{{super_user_name}}"
+    group: "{{super_user_name}}"
+    mode: '0770'
+- name: Creating directory /home/{{super_user_name}}/c2/sliver
+  ansible.builtin.file:
+    path: /home/{{super_user_name}}/c2/sliver
+    state: directory
+    owner: "{{super_user_name}}"
+    group: "{{super_user_name}}"
+    mode: '0770'
+- name: Creating directory /home/{{super_user_name}}/c2/sliver/configs
+  ansible.builtin.file:
+    path: /home/{{super_user_name}}/c2/sliver/configs
+    state: directory
+    owner: "{{super_user_name}}"
+    group: "{{super_user_name}}"
+    mode: '0770'
+- name: Creating directory /home/{{super_user_name}}/c2/sliver/misc
+  ansible.builtin.file:
+    path: /home/{{super_user_name}}/c2/sliver/misc
+    state: directory
+    owner: "{{super_user_name}}"
+    group: "{{super_user_name}}"
+    mode: '0770'
+- name: Creating directory /home/{{super_user_name}}/c2/empire
+  ansible.builtin.file:
+    path: /home/{{super_user_name}}/c2/empire
+    state: directory
+    owner: "{{super_user_name}}"
+    group: "{{super_user_name}}"
+    mode: '0770'
+- name: Creating directory /home/{{super_user_name}}/c2/msf4
+  ansible.builtin.file:
+    path: /home/{{super_user_name}}/c2/msf4
+    state: directory
+    owner: "{{super_user_name}}"
+    group: "{{super_user_name}}"
+    mode: '0770'
+- name: Creating directory /home/{{super_user_name}}/c2/payloads
+  ansible.builtin.file:
+    path: /home/{{super_user_name}}/c2/payloads
+    state: directory
+    owner: "{{super_user_name}}"
+    group: "{{super_user_name}}"
+    mode: '0770'
+- name: Creating directory /home/{{super_user_name}}/c2/phishlets
+  ansible.builtin.file:
+    path: /home/{{super_user_name}}/c2/phishlets
+    state: directory
+    owner: "{{super_user_name}}"
+    group: "{{super_user_name}}"
+    mode: '0770'
+- name: Creating directory /home/{{super_user_name}}/c2/configs
+  ansible.builtin.file:
+    path: /home/{{super_user_name}}/c2/configs
+    state: directory
+    owner: "{{super_user_name}}"
+    group: "{{super_user_name}}"
+    mode: '0770'
+- name: Copying tmuxify layout
+  ansible.builtin.copy:
+    src: ../.tmuxify.layout
+    dest: /home/{{super_user_name}}/c2/.tmuxify.layout
+    owner: "{{super_user_name}}"
+    group: "{{super_user_name}}"
+    mode: '0600'

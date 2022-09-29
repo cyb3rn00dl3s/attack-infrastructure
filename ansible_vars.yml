@@ -1,0 +1,79 @@
+---
+## --- Basic Ansible configuration --- ##
+## These are needed for Ansible to connect to the target node
+
+### Target IP/Hostname
+c2Host: "192.168.1.3"
+
+### This is the user which Ansible will use to log on to your vps (default: root)
+### call me an old school sysadmin, but I like to use straight root on everything
+ansible_user: root
+
+### This is the password which Ansible will use to log on to your vps
+### why yes we store secrets in plain text - how did you know?
+ansible_password: 'CorrectHorseBatteryStable'
+ansible_become_password: 'CorrectHorseBatteryStable'
+
+## --- Feature Selection --- ##
+
+## Download all images (USES A TON OF DISKSPACE!)
+### This will enable all files in the roles/$os/docker/images folder, regardless of any other setting!
+### If set to false only the images selected down below are downloaded
+all: true
+
+### C2 Selection
+empire: true
+msf: true
+sliver: true
+
+### Phishing
+gophish: true
+evilginx2: true
+
+### Misc
+nginx: true
+
+## --- Hardening Settings (Experimental)--- ##
+### The following settings are documented in the "System Hardening" part of the README!
+
+### .------------------------.
+### | PLEASE READ THE README |
+### '------------------------'
+
+### Enable system hardening (default: true)
+run_hardening: true
+
+### super user name (default: ai-admin)
+super_user_name: ai-admin
+
+### super user password (no default!) -- generate one with the following command: `mkpasswd`
+super_user_pass: 'REPLACE ME WITH A HASH'
+
+### Enable SSH hardening (default: true)
+ssh_hardening: true
+
+### Enable malloc hardening (default: false)
+malloc_hardening: true
+
+### Enable Information normalization (default: true)
+normalize_information: true
+
+### Enable file system hardening (default: true)
+filesystem_hardening: true
+
+## --- Other System Settings --- ##
+
+### does some decoration (hostname,motd) -- totally unnecessary, but I thought it was funny (default: false)
+enable_flair: false
+
+### Set new hostname
+new_hostname: 'ai'
+
+### Set motd to the following block
+motd: |
+  The programs included with the Debian GNU/Linux system are free software;
+  the exact distribution terms for each program are described in the
+  individual files in /usr/share/doc/*/copyright.
+
+  Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+  permitted by applicable law.

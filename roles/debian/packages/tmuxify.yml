@@ -1,0 +1,5 @@
+- name: install tmuxify
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/tonchis/tmuxify/master/bin/tmuxify
+    dest: /usr/local/bin/tmuxify
+    mode: "0755"
