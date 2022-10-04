@@ -135,7 +135,7 @@ attack-infrastructure/
 9.  Log on to your VPS, cd into /root/c2 (or /home/$superuser/c2) and run `tmuxify`
     1.  If you have enabled system hardening, you will need the new key file (id_$superuser_\$timestamp) to log onto the system.
 
-**Warning** installing every tool that is included here will take up a LOT of disk space. Make sure that you have enough or modify the setup to suit your needs (recommended!).
+**Warning** installing every tool that is included here will take up a LOT of disk space (~5-ish GB). Make sure that you have enough or modify the setup to suit your needs (recommended!).
 
 ## On-Server Directory Structure
 
